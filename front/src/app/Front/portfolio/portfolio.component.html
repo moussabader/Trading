@@ -1,0 +1,150 @@
+<app-header></app-header>
+<div class="container-fluid about py-5">
+<div class="page-heading">
+    <h3>Portfolio overview</h3>
+</div>
+
+
+ <app-intra-day></app-intra-day>
+
+
+  <div class="page-content">
+    <section class="row" *ngFor="let portfolio of portfolios">
+      <div class="col-12 col-lg-9">
+        <div class="row">
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon purple">
+                        <i class="iconly-boldShow"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Account value</h6>
+                        <h6 class="font-extrabold mb-0">{{ portfolio.accVal }}</h6>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div> 
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon blue">
+                        <i class="iconly-boldProfile"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Buying power</h6>
+                        <h6 class="font-extrabold mb-0">{{ portfolio.buyPow }}</h6>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div> 
+            <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+              <div class="card-body px-3 py-4-5">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="stats-icon green">
+                      <i class="iconly-boldAdd-User"></i>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="text-muted font-semibold">Cash</h6>
+                    <h6 class="font-extrabold mb-0">{{ portfolio.cash }}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div> 
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon red">
+                            <i class="iconly-boldBookmark"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Rank</h6>
+                            <h6 class="font-extrabold mb-0">{{ portfolio.user.rank }}</h6>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+                      
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>line chart for the stocks performance of the portfolio </h4>
+                    </div>
+                    <div class="card-body">
+                        <app-dashboard></app-dashboard>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <app-holding></app-holding>
+
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="card">
+                <div class="card-body py-4 px-5">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar avatar-xl">
+                            <img src="assets/Back/images/faces/1.jpg" alt="Face 1">
+                        </div>
+                        <div class="ms-3 name">
+                            <h5 class="font-bold">{{ portfolio.user.id }}</h5>
+                            <h6 class="text-muted mb-0">{{ portfolio.user.fullname }}</h6> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--place order-->
+            <app-place-order></app-place-order>
+            <!--Global Market Status-->
+            <div class="card">
+                <div class="card-header">
+                    <h4>Global Market Status</h4>
+                </div>
+                <!--Market Open/ closed-->
+                <div>
+                    <input [(ngModel)]="searchTerm" placeholder="Enter stock symbol">
+                    <button (click)="search()">Search</button>
+                </div>
+                <div *ngIf="searchResults.length">
+                    <h3>Search Results:</h3>
+                    <ul>
+                    <li *ngFor="let result of searchResults">
+                        <strong>{{ result['1. symbol'] }} - {{ result['2. name'] }}</strong>
+                        <ul>
+                        <li>Type: {{ result['3. type'] }}</li>
+                        <li>Region: {{ result['4. region'] }}</li>
+                        <li>Market Open: {{ result['5. marketOpen'] }}</li>
+                        <li>Market Close: {{ result['6. marketClose'] }}</li>
+                        <li>Timezone: {{ result['7. timezone'] }}</li>
+                        <li>Currency: {{ result['8. currency'] }}</li>
+                        <li>Match Score: {{ result['9. matchScore'] }}</li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>  
+            </div>
+        </div>
+    </section>
+</div>
+</div>
+<app-footer-front></app-footer-front>

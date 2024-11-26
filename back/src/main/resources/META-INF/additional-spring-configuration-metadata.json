@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "alphavantage.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'alphavantage.api.key'"
+  },
+  {
+    "name": "application.security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'application.security.jwt.secret-key'"
+  },
+  {
+    "name": "application.security.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.application.security.expiration'"
+  },
+  {
+    "name": "application.mailing.frontend.activation-url",
+    "type": "java.lang.String",
+    "description": "A description for 'application.mailing.frontend.activation-url'"
+  },
+  {
+    "name": "twilio.phone_number",
+    "type": "java.lang.String",
+    "description": "A description for twilio phone_number "
+  },
+  {
+    "name": "twilio.auth_token",
+    "type": "java.lang.String",
+    "description": "A description for twilio auth_token"
+  },
+  {
+    "name": "twilio.account_sid",
+    "type": "java.lang.String",
+    "description": "A description for twilio account_sid"
+  }
+]}

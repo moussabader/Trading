@@ -1,0 +1,248 @@
+<app-header></app-header>
+<div class="page-content">
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10"> <!-- Updated column size for smaller form -->
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h1>Order Form</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="modal-body">
+                                <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <!--Assets-->
+                                            <div class="col-md-6 mb-1">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text" for="tradeType">Assets</label>
+                                                    <select class="form-select" formControlName="tradeType" id="tradeType" (change)="onTradeTypeChange()">
+                                                        <option value="" disabled>Select Trade Type</option>
+                                                        <option *ngFor="let type of tradeTypes" [value]="type">{{type}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!--symbol-->
+                                            <div class="col-md-6 mb-1" *ngIf="isTradeTypeSelected">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                                                    <input type="text" class="form-control" formControlName="symbol" placeholder="Look up symbol/ Company name/" id="symbol">
+                                                    <button class="btn btn-outline-secondary" type="button" (click)="searchSymbol()">search</button>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="stockData" class="stock-quote-card">
+                                                <h3>Stock Quote for {{ stockData['01. symbol'] }}:</h3>
+                                                <div class="card">
+                                                    <ul>
+                                                        <li><strong>Symbol:</strong> {{ stockData['01. symbol'] }}</li>
+                                                        <li><strong>Open:</strong> {{ stockData['02. open'] }}</li>
+                                                        <li><strong>High:</strong> {{ stockData['03. high'] }}</li>
+                                                        <li><strong>Low:</strong> {{ stockData['04. low'] }}</li>
+                                                        <li><strong>Price:</strong> {{ stockData['05. price'] }}</li>
+                                                        <li><strong>Volume:</strong> {{ stockData['06. volume'] }}</li>
+                                                        <li><strong>Latest Trading Day:</strong> {{ stockData['07. latest trading day'] }}</li>
+                                                        <li><strong>Previous Close:</strong> {{ stockData['08. previous close'] }}</li>
+                                                        <li><strong>Change:</strong> {{ stockData['09. change'] }}</li>
+                                                        <li><strong>Change Percent:</strong> {{ stockData['10. change percent'] }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="stockData">
+                                                <div class="card">
+                                                  <div class="card-header">
+                                                    <h4>Line Chart</h4>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <canvas #lineChartCanvas width="400" height="200"></canvas> 
+                                                  </div>
+                                                </div>
+                                            </div> <!--Action-->
+                                            <div class="col-md-6 col-12" *ngIf="isTradeTypeSelected">
+                                                <div class="input-group">
+                                                    <label class="input-group-text" for="transacType">Action</label>
+                                                    <select formControlName="transacType" id="transacType" class="form-select" (change)="onTransacTypeChange()">
+                                                        <option *ngFor="let type of transacTypes" [value]="type">{{type}}</option>
+                                                    </select>
+                                                </div>
+                                            </div> <!--Quantity-->
+                                            <div class="col-md-6 col-12" *ngIf="isTradeTypeSelected">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative ">
+                                                        <input type="number" class="form-control" placeholder="Quantity" id="qty" formControlName="qty" min="1">
+                                                        <div class="form-control-icon"> 
+                                                            <svg class="bi" width="1em" height="1em" fill="currentColor">
+                                                            <use xlink:href="assets/Back/vendors/bootstrap-icons/bootstrap-icons.svg#minecart-loaded" />
+                                                        </svg>
+                                                        </div>
+                                                    </div>                                                       
+                                                </div>
+                                            </div> <!--orderType-->
+                                            <div class="col-md-6 col-12" *ngIf="isTradeTypeSelected">
+                                                <div class="input-group">
+                                                    <label class="input-group-text" for="orderType">Order type</label>
+                                                    <select formControlName="orderType" id="orderType" class="form-select" (change)="onOrderTypeChange()">
+                                                        <option *ngFor="let type of orderTypes" [value]="type">{{type}}</option>
+                                                    </select>
+                                                </div>
+                                            </div> <!--Duration-->
+                                            <div class="col-md-6 col-12" *ngIf="isTradeTypeSelected">
+                                                <div class="input-group">
+                                                    <label class="input-group-text" for="duration">Duration</label>
+                                                    <select formControlName="duration" id="duration" class="form-select">
+                                                        <option value="Day_only">day only</option>
+                                                            <option value="GTC">Good till cancelled</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--Price-->
+                                            <div class="col-md-6 col-12" *ngIf="orderForm.value.orderType === 'LIMIT'">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="price">Price</label>
+                                                    <div class="position-relative">
+                                                        <input type="number" class="form-control" formControlName="price" min="1" >
+                                                        <i class="bi bi-cash form-control-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12" *ngIf="orderForm.value.orderType === 'STOP_LIMIT'">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="price">Price</label>
+                                                    <div class="position-relative">
+                                                        <input type="number" class="form-control" formControlName="price" min="1" >
+                                                        <i class="bi bi-cash form-control-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div><div class="col-md-6 col-12" *ngIf="orderForm.value.orderType === 'TRAILING_STOP'">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="price">Price</label>
+                                                    <div class="position-relative">
+                                                        <input type="number" class="form-control" formControlName="price" min="1" >
+                                                        <i class="bi bi-cash form-control-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div><!--param-->
+                                            <div class="col-md-6 col-12" *ngIf="orderForm.value.orderType === 'TRAILING_STOP'">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="param">Parameter</label>
+                                                    <select formControlName="param" id="param" class="form-select">
+                                                        <option value="$">$</option>
+                                                        <option value="%">%</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            
+                                            
+                                            <div *ngIf="orderForm.value.tradeType === 'BONDS'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="faceValue">Face Value</label>
+                                                        <input type="number" class="form-control" formControlName="faceValue" min="0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="couponRate">Coupon Rate (%)</label>
+                                                        <input type="number" class="form-control" formControlName="couponRate" min="0" max="100">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="maturityDate">Maturity Date</label>
+                                                        <input type="date" class="form-control" formControlName="maturityDate">
+                                                    </div>
+                                                </div>
+                                            </div>                                
+                                            <div *ngIf="orderForm.value.tradeType === 'COMMODITIES'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="commodType">Commodity Type</label>
+                                                        <input type="text" class="form-control" formControlName="commodType">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="contractSize">Contract Size</label>
+                                                        <input type="number" class="form-control" formControlName="contractSize" min="0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="expiryDate">Expiry Date</label>
+                                                        <input type="date" class="form-control" formControlName="expiryDate">
+                                                    </div>
+                                                </div>
+                                            </div>                                
+                                            <div *ngIf="orderForm.value.tradeType === 'MUTUAL_FUNDS'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="nav">Net Asset Value (NAV)</label>
+                                                        <input type="number" class="form-control" formControlName="nav" min="0">
+                                                    </div>
+                                                </div>
+                                            </div>                                
+                                            <div *ngIf="orderForm.value.tradeType === 'ETF'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="price">Price</label>
+                                                        <input type="number" class="form-control" formControlName="price" min="0">
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                            <div *ngIf="orderForm.value.tradeType === 'OPTIONS'" >
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="strikePrice">Strike Price</label>
+                                                        <input type="number" class="form-control" formControlName="strikePrice" min="0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="expiryDate">Expiry Date</label>
+                                                        <input type="date" class="form-control" formControlName="expiryDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="orderForm.value.tradeType === 'FOREX'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="currencyPair">Currency Pair</label>
+                                                        <input type="text" class="form-control" formControlName="currencyPair">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="lotSize">Lot Size</label>
+                                                        <input type="number" class="form-control" formControlName="lotSize" min="0">
+                                                    </div>
+                                                </div>
+                                            </div>                                
+                                            <div *ngIf="orderForm.value.tradeType === 'CRYPTOS'">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="cryptoType">Crypto Type</label>
+                                                        <input type="text" class="form-control" formControlName="cryptoType">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer-front></app-footer-front>

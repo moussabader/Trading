@@ -1,0 +1,64 @@
+<app-header></app-header>
+<div class="row">
+    <div class="col-12 ">
+        <div class="card">
+            <section class="section">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0">Holdings</h4>
+                                <a href="#" class="btn btn-outline-info">show transactions</a>
+                            </div>                           
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <div *ngIf="holdings.length === 0; else holdingsTable">
+                                        <p>You have no holdings.!!</p>
+                                    </div>
+                                    <ng-template #holdingsTable>
+                                        <table class="table table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>NAME</th>
+                                                    <th>SYMBOL</th>
+                                                    <th>QUANTITY</th>
+                                                    <th>AVG PRICE</th>
+                                                    <th>CURRENT PRICE</th>
+                                                    <th>MARKET VALUE</th>
+                                                    <th>ACQUISITION DATE</th>
+                                                    <th>ACTIONS</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let holding of holdings">
+                                                    <td class="text-bold-500">{{ holding.name }}</td>
+                                                    <td>{{ holding.symbol }}</td>
+                                                    <td class="text-bold-500">{{ holding.qty }}</td>
+                                                    <td>{{ holding.avgPrice | currency }}</td>
+                                                    <td>{{ holding.curntPrice | currency }}</td>
+                                                    <td>{{ holding.mktVal | currency }}</td>
+                                                    <td>{{ holding.acquisitionDate | date }}</td>
+                                                    <td>
+                                                        <div class="action-icons" style="display: flex; align-items: center;">
+                                                            <a href="#" (click)="buyHolding(holding.id)" title="Buy">
+                                                                <i class="fa-fw select-all fas" style="font-size: 1.5em;">&#xf017;</i>
+                                                            </a>
+                                                            <a href="#" (click)="sellHolding(holding.id)" title="Sell" style="margin-left: 10px;">
+                                                                <i class="fa-fw select-all fas" style="font-size: 1.5em;">&#xf07a;</i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

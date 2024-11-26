@@ -1,0 +1,58 @@
+<div class="row content">
+    <div class="login-header">
+        <img src="assets/Back/images/logo/logo.png" alt="Logo" />
+    </div>
+    <div class="login-body">
+        <h1 class="text-center">Sign In</h1>
+        <p class="text-center mt-3">
+            Please enter your email and password to sign in
+        </p>
+        <form [formGroup]="loginform">
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="email" class="form-control form-control-xl" placeholder="Email" formControlName="email" />
+                <div class="form-control-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+            </div>
+            <div class="caption status-danger" *ngIf=" email?.touched && email?.invalid">
+                <p *ngIf="email?.errors?.['required']">
+                    Email is required!
+                </p>
+                <p *ngIf="email?.errors?.['email']">
+                    Your email is invalid, please check
+                </p>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="password" class="form-control form-control-xl" placeholder="Password" formControlName="password" />
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="caption status-danger" *ngIf="password?.touched && password?.invalid">
+                <p *ngIf="password?.errors?.['required']">
+                    Password is required!
+                </p>
+            </div>
+            <div class="form-check form-check-lg d-flex align-items-end">
+                <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />
+                <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                    Keep me logged in
+                </label>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"
+            (click)="onSubmit()"
+            [disabled]="loginform.invalid">
+                Log in
+            </button>
+        </form>
+    </div>
+    <div class="login-footer">
+        <p>
+            Don't have an account ? <a [routerLink]="'/register'" class="link">Sign up</a>.
+        </p>
+        <p>
+            <a [routerLink]="'/reset-pwd'" class="link">Reset Password</a>.
+        </p>
+    </div>
+
+</div>

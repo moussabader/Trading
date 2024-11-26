@@ -1,0 +1,69 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Users List</h2>
+                    </div>
+                    <div class="card-body">
+                        <input type="search" [(ngModel)]="search" class="form-control" placeholder="Search..." />
+                    </div>
+                    <table id="example1" class="table table-borderless table-hover">
+                        <thead class="thead-list">
+                            <tr>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Rank</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let user of users | searchfilter: search">
+                            <tr>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.username }}</td>
+                                <td *ngFor="let r of user.roles"> {{ r.name }} </td>
+                                <td>{{ user.rank }}</td>
+                                <td>
+                                    <button class="btn btn-primary" (click)="detailsUser(user)">
+                                        Details
+                                    </button>
+                                    <button class="{{user.enabled ? 'btn btn-danger' : 'btn btn-success'}}" 
+                                        (click)="selectedUser = user"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                         {{user.enabled ? 'Disable' : 'Enable'}} 
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Status Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to {{selectedUser && selectedUser.enabled ? 'disable' : 'enable'}} this user's account ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="changeStatus()">
+                    {{selectedUser && selectedUser.enabled ? 'Disable' : 'Enable'}} 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

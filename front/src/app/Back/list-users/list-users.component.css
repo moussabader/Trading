@@ -1,0 +1,31 @@
+h2.card-title {
+    font-size: 25px;
+  }
+  div.order-and-size{
+   display: flex;
+   flex-direction: row-reverse;
+    align-content: space-around;
+  }
+  button.btn.btn-primary{
+    color: whitesmoke;
+    background-color: #0c84ff;
+    margin-right: 5%;
+  }
+  button.btn.btn-primary:hover{
+    color: whitesmoke;
+    background-color: darkcyan;
+    border: none;
+  }
+  button.btn.btn-danger{
+    color: whitesmoke;
+    background-color: rgb(139, 46, 46);
+    border: none;
+  }
+  button.btn.btn-danger:hover{
+    color: whitesmoke;
+    background-color: rgb(139, 46, 46);
+  }
+
+  .thead-list {
+    background-color: whitesmoke;
+  }

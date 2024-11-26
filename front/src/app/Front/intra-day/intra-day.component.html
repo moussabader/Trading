@@ -1,0 +1,16 @@
+<div *ngIf="stockData">
+    <h2>Stock Data for {{ symbol }}</h2>
+    <p><strong>Last Refreshed:</strong> {{ stockData['Meta Data']['3. Last Refreshed'] }}</p>
+    <p><strong>Symbol:</strong> {{ stockData['Meta Data']['2. Symbol'] }}</p>
+    
+    <h3>Time Series (5 min)</h3>
+    <div *ngFor="let time of stockData['Time Series (5min)' ]">
+      <p>
+        <strong>{{ time.key }}:</strong>
+        Open: {{ time.value['1. open'] }}, 
+        High: {{ time.value['2. high'] }},
+        Low: {{ time.value['3. low'] }},
+        Close: {{ time.value['4. close'] }}
+      </p>
+    </div>
+</div>

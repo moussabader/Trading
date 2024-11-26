@@ -1,0 +1,24 @@
+.sidebar-link.active {
+    background-color: #435ebe; /* Change to your desired active color */
+    color: white; /* Change to your desired text color */
+}
+
+.img-logo {
+    height: auto !important;
+    width: 100%;
+}
+.sidebar-header {
+    padding: 0 ;
+}
+.sidebar-item {
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    transition: all 0.3s ease;
+  }
+  
+  .submenu.open {
+    display: block;
+  }

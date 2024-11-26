@@ -1,0 +1,116 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+    <a href="" class="navbar-brand p-0">
+        <h1 class="text-primary"><i class="fas fa-dollar-sign me-3"></i>Smart Stock</h1>
+        <img src="assets/Front/img/logo.png" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="index.html" class="nav-item nav-link active">Home</a>
+            <a href="about.html" class="nav-item nav-link">About</a>
+            <a href="service.html" class="nav-item nav-link">Services</a>
+            <a href="blog.html" class="nav-item nav-link">Blogs</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                    <span class="dropdown-toggle">Pages</span>
+                </a>
+                <div class="dropdown-menu m-0">
+                    <a href="feature.html" class="dropdown-item">Our Features</a>
+                    <a href="team.html" class="dropdown-item">Our team</a>
+                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                    <a href="offer.html" class="dropdown-item">Our offer</a>
+                    <a href="FAQ.html" class="dropdown-item">FAQs</a>
+                    <a href="404.html" class="dropdown-item">404 Page</a>
+                </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+        </div>
+        <a href="#" class="btn btn-primary rounded-pill py-2 px-4 my-3 my-lg-0 flex-shrink-0" [routerLink]="['/login']">Get Started</a>
+    </div>
+</nav> -->
+
+<header class='mb-3'>
+    <nav class="navbar navbar-expand navbar-light ">
+        <div class="container-fluid mt-5">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-dollar-sign me-3"></i>Smart Stock</h1>
+                <!-- <img src="assets/Back/images/logo/logo.png" alt="Logo" /> -->
+            </a>
+            <div class="titles">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#content-nav">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="content-nav">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a [routerLink]="['/portfolio']" class="nav-item nav-link" routerLinkActive="active">Portfolio</a>
+                        <a [routerLink]="['/holding']" class="nav-item nav-link" routerLinkActive="active">Holdings</a>
+                        <a [routerLink]="['/transaction']" class="nav-item nav-link" routerLinkActive="active">Transactions</a>
+                        <a [routerLink]="['/order']" class="nav-item nav-link" routerLinkActive="active">Orders</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-bs-toggle="dropdown"
+                                [ngStyle]="{'color': 'rgba(0,0,0,.7)'}">
+                                <span class="dropdown-toggle">Pages</span>
+                            </a>
+                            <div class="dropdown-menu m-0">
+                                <a href="#" class="dropdown-item">Our Features</a>
+                                <a href="#" class="dropdown-item">Our team</a>
+                                <a href="#" class="dropdown-item">Testimonial</a>
+                                <a href="#" class="dropdown-item">Our offer</a>
+                                <a href="#" class="dropdown-item">FAQs</a>
+                                <a href="#" class="dropdown-item">404 Page</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="nav-right">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#user-nav"
+                    aria-controls="user-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="user-nav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                aria-expanded="false" [ngStyle]="{'height': '88%'}">
+                                <div class="user-menu d-flex">
+                                    <div class="user-name text-end me-3">
+                                        <h6 class="mb-0 text-gray-600">{{ user ? user.fullname : '' }}</h6>
+                                        <p class="mb-0 text-sm text-gray-600">{{user ? user.email : '' }}</p>
+                                    </div>
+                                    <div class="user-img d-flex align-items-center">
+                                        <div class="avatar avatar-md">
+                                            <img src="assets/Back/images/faces/1.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <h6 class="dropdown-header">Hello, {{user ? user.fullname : ''}}!</h6>
+                                </li>
+                                <li><a class="dropdown-item" (click)="navigateToProfile()"><i
+                                            class="icon-mid bi bi-person me-2"></i> My
+                                        Profile</a></li>
+                                <!-- <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
+                                    Settings</a></li> -->
+                                <li><a class="dropdown-item" href=""><i class="icon-mid bi bi-wallet me-2"></i>
+                                        Wallet</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" (click)="logout()"><i
+                                            class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</header>
+<br><br>

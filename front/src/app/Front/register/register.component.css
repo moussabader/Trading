@@ -1,0 +1,49 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 100%; */
+    background-color: rgb(234, 234, 236); ;
+}
+
+.login-header {
+    width: 40%;
+}
+.login-header img {
+    width: 100%;
+    height: auto;
+}
+.login-body {
+    width: 40%;
+    padding: 1% 3% 1%;
+    border-radius: 3%;
+    border: 1px solid rgb(174, 189, 255);
+    background-color: rgb(211, 217, 243);
+    margin-bottom: 40px;
+}
+
+.login-body button{
+    width: 40%;
+    margin-left: 30%;
+}
+.login-footer {
+    display: flex;
+    width: 40%;
+    flex-direction: row;
+    justify-content: center;
+}
+.link {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(43, 43, 172);
+}
+.link:hover{
+    text-decoration: underline;
+    color: rgb(72, 72, 163);
+    font-weight: 700;
+
+}
+.status-danger {
+    color: red;
+}

@@ -1,0 +1,58 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Note</th>
+        <th>Trade Type</th>
+        <th>Order Type</th>
+        <th>Transaction Type</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.symbol }}</td>
+        <td>{{ order.qty }}</td>
+        <td>{{ order.price }}</td>
+        <td>{{ order.date | date:'short' }}</td>
+        <td>{{ order.note }}</td>
+        <td>{{ order.tradeType }}</td>
+        <td>{{ order.orderType }}</td>
+        <td>{{ order.transacType }}</td>
+        <td>
+          <!-- Clickable Status -->
+          <span class="badge bg-primary" (click)="onStatusClick(order)">{{ order.status }}</span>
+        </td>
+        <td>
+          <button class="btn bi-trash" (click)="deleteOrder(order.id)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- Modal for Confirmation -->
+  <div *ngIf="selectedOrder" class="modal" tabindex="-1" style="display: block;" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Status Change</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to change the status of order {{ selectedOrder.symbol }}?</p>
+          <select [(ngModel)]="selectedOrder.status" class="form-select">
+            <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="confirmStatusChange()">Save changes</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

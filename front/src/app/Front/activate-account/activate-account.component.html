@@ -1,0 +1,39 @@
+<div class="row content">
+    <div class="activation-header">
+        <img src="assets/Back/images/logo/logo.png" alt="Logo" />
+    </div>
+    <div class="activation-body">
+        <h1 class="text-center">Activate your account</h1>
+        <p class="text-center mt-3">
+            Please enter the 6 digit code sent to your email to proceed your account activation
+        </p>
+        <form [formGroup]="activationform">
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="text" class="form-control form-control-xl" placeholder="Activation code" formControlName="code" />
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="caption status-danger" *ngIf="code?.touched && code?.invalid">
+                <p *ngIf="code?.errors?.['required']">
+                    Activation code is required!
+                </p>
+            </div>
+            
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"
+            (click)="onSubmit()"
+            [disabled]="activationform.invalid">
+                Activate
+            </button>
+        </form>
+    </div>
+    <div class="activation-footer">
+        <p>
+            Don't have an account yet ? <a [routerLink]="'/register'" class="link">Sign Up</a>.
+        </p>
+        <p>
+            <a [routerLink]="'/login'" class="link">Sign In</a>.
+        </p>
+    </div>
+
+</div>

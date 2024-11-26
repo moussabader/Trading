@@ -1,0 +1,28 @@
+<div id="app">
+    <app-sidebar></app-sidebar>
+    <div id="main">
+        <div class="page-heading">
+            <app-nav></app-nav>
+            <section class="section">
+                <div>
+                    <div>
+                        <!-- <ng-container [ngSwitch]="currentComponent">
+                            <app-dashboard  *ngSwitchCase="'dash'"></app-dashboard>
+                            <app-list-users  *ngSwitchCase="'list-user'"></app-list-users>
+                            <app-list-portfolio *ngSwitchCase="'portfolio'"></app-list-portfolio>
+                            <app-list-orders *ngSwitchCase="'orders'"></app-list-orders>
+                        </ng-container> -->
+                        <app-list-users  *ngIf="currentComponent === 'list-user'"></app-list-users>
+                        <app-dashboard  *ngIf="currentComponent === 'dash'"></app-dashboard>
+                        <app-list-portfolio *ngIf="currentComponent === 'portfolio'"></app-list-portfolio>
+                        <app-list-orders *ngIf="currentComponent === 'orders'"></app-list-orders>
+                        <app-user-profile *ngIf="currentComponent === 'profile'"></app-user-profile>
+                        <app-user-details *ngIf="currentComponent === 'user-details'"></app-user-details>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+       <app-footer></app-footer>
+    </div>
+</div>

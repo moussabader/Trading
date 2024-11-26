@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="row">
+        <h4>User Informations</h4>
+        <table class="table table-borderless info">
+            <tr>
+                <th>Username :</th>
+                <td>{{selectedUser.fullname}}</td>
+            </tr>
+            <tr>
+                <th>Email :</th>
+                <td>{{selectedUser.email}}</td>
+            </tr>
+            <tr>
+                <th>Role :</th>
+                <td>{{userRole}}</td>
+            </tr>
+            <tr>
+                <th>Rank :</th>
+                <td>{{selectedUser.rank}}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="row">
+        <h4>User Portfolio</h4>
+        <table class="table table-borderless info">
+            <tr>
+                <th>Account Value :</th>
+                <td>{{ selectedUser.portfolio.accVal }}</td>
+            </tr>
+            <tr>
+                <th>Annual Return :</th>
+                <td>{{ selectedUser.portfolio.annReturn }}</td>
+            </tr>
+            <tr>
+                <th>Cash :</th>
+                <td>{{ selectedUser.portfolio.cash }}</td>
+            </tr>
+            <tr>
+                <th>Buy Pow :</th>
+                <td>{{ selectedUser.portfolio.buyPow }}</td>
+            </tr>
+            <tr>
+                <th>TDY Change :</th>
+                <td>{{ selectedUser.portfolio.tdyChange }}</td>
+            </tr>
+            <tr>
+                <th>Total Gain/Loss :</th>
+                <td>{{ selectedUser.portfolio.totGainLoss }}</td>
+            </tr>
+            <tr>
+                <th>Total Value :</th>
+                <td>{{ selectedUser.portfolio.totVal }}</td>
+            </tr>
+            <tr>
+                <th>Date Created :</th>
+                <td>{{ selectedUser.portfolio.dateCreated | date}}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="row">
+        <h4>List of Transactions</h4>
+        <div class="card-body">
+            <input type="search" [(ngModel)]="searchTransactions" class="form-control" placeholder="Search Transactions..." />
+        </div>
+        <table id="transactions" class="table table-borderless table-hover">
+            <thead class="thead-list">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Amount</th>
+                    <th>Commission</th>
+                    <th>Dividend</th>
+                    <th>Placing Order N°</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let transaction of selectedUser.portfolio.transactions| searchfilter: searchTransactions">
+                <tr>
+                    <td>{{ transaction.symbol }}</td>
+                    <td>{{ transaction.descp }}</td>
+                    <td>{{ transaction.price }}</td>
+                    <td>{{ transaction.quantity }}</td>
+                    <td>{{ transaction.totalAmount }}</td>
+                    <td>{{ transaction.commiss }}</td>
+                    <td>{{ transaction.dividende }}</td>
+                    <td>{{ transaction.placingOrder.id }}</td>
+                    <td>{{ transaction.date | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+        <h4>List of Holdings</h4>
+        <div class="card-body">
+            <input type="search" [(ngModel)]="searchHoldings" class="form-control" placeholder="Search Holdings..." />
+        </div>
+        <table id="holdings" class="table table-borderless table-hover">
+            <thead class="thead-list">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Average Price</th>
+                    <th>Current Price</th>
+                    <th>Market Value</th>
+                    <th>Acquisition Date</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let holding of selectedUser.portfolio.holdings| searchfilter: searchHoldings">
+                <tr>
+                    <td>{{ holding.symbol }}</td>
+                    <td>{{ holding.name }}</td>
+                    <td>{{ holding.qty }}</td>
+                    <td>{{ holding.avgPrice }}</td>
+                    <td>{{ holding.curntPrice }}</td>
+                    <td>{{ holding.mktVal }}</td>
+                    <td>{{ holding.acquisitionDate | date }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

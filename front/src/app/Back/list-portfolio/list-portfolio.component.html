@@ -1,0 +1,33 @@
+<div class="container">
+    <h2 class="mb-4">List Portfolio</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Total Value</th>
+                <th>Date Created</th>
+                <th>Account Value</th>
+                <th>Buying Power</th>
+                <th>Cash</th>
+                <th>Today's Change</th>
+                <th>Annual Return</th>
+                <th>Total Gain/Loss</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let portfolio of portfolios">
+                <td>{{ portfolio.totVal }}</td>
+                <td>{{ portfolio.dateCreated | date }}</td>
+                <td>{{ portfolio.accVal }}</td>
+                <td>{{ portfolio.buyPow }}</td>
+                <td>{{ portfolio.cash }}</td>
+                <td>{{ portfolio.tdyChange }}</td>
+                <td>{{ portfolio.annReturn }}</td>
+                <td>{{ portfolio.totGainLoss }}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="deletePortfolio(portfolio.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
